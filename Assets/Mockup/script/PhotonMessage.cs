@@ -50,6 +50,10 @@ public class PhotonMessage : MonoBehaviourPunCallbacks
 
     ///message event
     ///
+    public static void UpdatePlayerDeck(byte[] cards)
+    {
+        RaiseEvent(EventCode.UpdatePlayerDeck, cards, ReceiverGroup.All);
+    }
     public static void PlayerReadyRequest(byte actorNumber,byte photonviewID)
     {
         byte[] sendParam = new byte[] { photonviewID,1};
@@ -58,6 +62,10 @@ public class PhotonMessage : MonoBehaviourPunCallbacks
     public static void RequestSeatData(){
         Debug.Log("requestseatdata");
         RaiseEvent(EventCode.RequestSeatData, null, ReceiverGroup.All);
+    }
+    public static void DeckUpdateEnd()
+    {
+        RaiseEvent(EventCode.PlayerUpdateDeckEnd, null, ReceiverGroup.Others);
     }
 
 }

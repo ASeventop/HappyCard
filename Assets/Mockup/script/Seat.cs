@@ -50,7 +50,7 @@ public class Seat : MonoBehaviourPun,IPunObservable
     }
     void ReadyRequest()
     {
-        PhotonMessage.PlayerReadyRequest((byte)player.ActorNumber, (byte)viewID);
+        //PhotonMessage.PlayerReadyRequest((byte)player.ActorNumber, (byte)viewID);
     }
     public void Ready()
     {

@@ -1,11 +1,11 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class QuickStartLobbyController : MonoBehaviourPunCallbacks
 {
     [SerializeField]
-    private GameObject quickStartButton; //button used for creating and joining a game.
+    private Button quickStartButton; //button used for creating and joining a game.
     [SerializeField]
     private GameObject quickCancelButton; //button used to stop searing for a game to join.
     [SerializeField]
@@ -14,12 +14,12 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster() //Callback function for when the first connection is established successfully.
     {
         PhotonNetwork.AutomaticallySyncScene = true; //Makes it so whatever scene the master client has loaded is the scene all other clients will load
-        quickStartButton.SetActive(true);
+        quickStartButton.interactable = true;
     }
 
     public void QuickStart() //Paired to the Quick Start button
     {
-        quickStartButton.SetActive(false);
+        quickStartButton.interactable = false;
         quickCancelButton.SetActive(true);
         PhotonNetwork.NickName = "name" + Random.Range(0, 1000);
         PhotonNetwork.JoinRandomRoom(); //First tries to join an existing room

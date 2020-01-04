@@ -20,18 +20,12 @@ public class Ready_UI : MonoBehaviourPunCallbacks
         {
 
         });
-        MyPlayer.Instance.isSit.AsObservable().Subscribe(sit =>
+        MyPlayer.Instance.OnSit.Subscribe(isSit =>
         {
-            //Debug.Log(" MyPlayer.Instance.isSit.AsObservable() " + sit);
-            if(sit)
-                b_ready.gameObject.SetActive(true);
-            else
-                b_ready.gameObject.SetActive(false);
+            b_ready.gameObject.SetActive(isSit);
         });
-        MyPlayer.Instance.isReady.AsObservable().Subscribe(ready =>
-        {
-            if (ready)
-                b_ready.gameObject.SetActive(false);
+        MyPlayer.Instance.OnReady.Subscribe(isReady => {
+            b_ready.gameObject.SetActive(!isReady);
         });
     }
 }

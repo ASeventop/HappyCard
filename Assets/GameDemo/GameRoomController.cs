@@ -37,7 +37,6 @@ public class GameRoomController : MonoBehaviourPunCallbacks
     }
     public void OnEvent(EventData photonEvent)
     {
-        Debug.Log("Onevent ");
        // EventCode code = (EventCode)photonEvent.Code;
         CheckEventCode((EventCode)photonEvent.Code,photonEvent);
         Debug.Log("onvent " + photonEvent.Code + "sender "+ photonEvent.Sender+" data "+photonEvent.CustomData);
@@ -116,13 +115,62 @@ public class GameRoomController : MonoBehaviourPunCallbacks
             case EventCode.DistributeCard:
                 DistributeCard(photonEvent);
                 break;
-
+            case EventCode.UpdateTimer:
+                UpdateTimer(photonEvent);
+                break;
+            case EventCode.PlayerUpdateDeckEnd://confirm playe end
+                PlayerUpdateDeckEnd(photonEvent);
+                break;
+            case EventCode.UpdateDeckEnd://end to all update
+                UpdateDeckEnd(photonEvent);
+                break;
+            case EventCode.RestartGameTimer:
+                UpdateTimeRestartGame(photonEvent);
+                break;
+            case EventCode.GameResult:
+                SetGameResult(photonEvent);
+                break;
         }
     }
+    void SetGameResult(EventData photonEvent)
+    {
+        Debug.Log("SetGameResult ---------------------------------------");
+        var data = photonEvent.CustomData as Dictionary<object, object>;
+        foreach (var player in data)
+        {
+            foreach (var playerData in player.Value as Dictionary<object,object>)
+            {
+                Debug.Log("playerData " + playerData.Key + "value "+playerData.Value);
+            }
+        }
+        UIManager.Instance.OpenGameResult(data);
+    }
+    void PlayerUpdateDeckEnd(EventData photonEvent)
+    {
+        Debug.Log("sender " + photonEvent.Sender);
+        Debug.Log("ActorNumber " + PhotonNetwork.LocalPlayer.ActorNumber);
+        if(PhotonNetwork.LocalPlayer.ActorNumber == photonEvent.Sender)
+            Game.Instance.PlayerDeckConfirm();
+    }
+    void UpdateTimeRestartGame(EventData photonEvent)
+    {
+        var data = photonEvent.CustomData as object[];
+        UIManager.Instance.RestartGame((float)data[0]);
+    }
+    void UpdateDeckEnd(EventData photonEvent)
+    {
+        Debug.Log("UpdateDeckEnd ");
+        Game.Instance.OpenPlayerDeck(false);
+    }
+    void UpdateTimer(EventData photonEvent)
+    {
+        var data = photonEvent.CustomData as object[];
+        var time = (float)data[0];
+        UIManager.Instance.SetTimer(time);
+    }
     void DistributeCard(EventData photonEvent) {
-        Debug.Log("PhotonNetwork.LocalPlayer.ActorNumber " + PhotonNetwork.LocalPlayer.ActorNumber);
-        Debug.Log("photonEvent.Sender " + photonEvent.Sender);
        if (photonEvent.Sender != PhotonNetwork.LocalPlayer.ActorNumber) return;
+        UIManager.Instance.CloseGameResult();
        var data = photonEvent.CustomData as Dictionary<string, object>;
         byte[] deckIDs = data["deck"] as byte[];
         Game.Instance.OpenPlayerDeck(true);
@@ -145,17 +193,8 @@ public class GameRoomController : MonoBehaviourPunCallbacks
     }
     void AcceptSit(EventData photonEvent)
     {
-        //SeatManager.Instance
-        Debug.Log("accept sit ");
-        Debug.Log("CustomData type " + photonEvent.CustomData.GetType());
-        Debug.Log("Parameters " + photonEvent.Parameters);
-        Debug.Log("Sender " + photonEvent.Sender);
-        Debug.Log("SenderKey " + photonEvent.SenderKey);
-        Debug.Log("CustomDataKey" + photonEvent.CustomDataKey);
         object[] aaa = photonEvent.CustomData as object[];
         var acceptSit = new AcceptSit { actorNumber = (int)aaa[0], id = (byte)aaa[1] };
-        Debug.Log("PhotonNetwork.PlayerList " + PhotonNetwork.CountOfPlayersInRooms);
-        Debug.Log("userid in find " + acceptSit.id);
         var playerSit = PhotonNetwork.PlayerList.FirstOrDefault(player => player.ActorNumber == acceptSit.actorNumber);
        if(playerSit.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
         {

@@ -14,5 +14,10 @@ public class Game : MonoBehaviour
     public void OpenPlayerDeck(bool open)
     {
         playerDeck_gameObject.SetActive(open);
+        playerDeck.StartGame(open);
+    }
+    public void PlayerDeckConfirm()
+    {
+        playerDeck.DeckConfirm();
     }
 }

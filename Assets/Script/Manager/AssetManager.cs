@@ -33,7 +33,6 @@ public class AssetManager : MonoBehaviour
     }
     public static Sprite GetSprite(string spriteName)
     {
-        Debug.Log("getsprite " + spriteName);
         return Instance.atlas.GetSprite(spriteName);
     }
 

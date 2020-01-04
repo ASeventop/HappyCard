@@ -13,7 +13,13 @@ public enum EventCode : byte
     ReadyRequest,
     ReadyAccept,
     GameReady,
-    DistributeCard
+    DistributeCard,
+    UpdatePlayerDeck,
+    UpdateTimer,
+    PlayerUpdateDeckEnd,
+    UpdateDeckEnd,
+    RestartGameTimer,
+    GameResult
 }
 public enum ParameterCode : byte
 {
@@ -22,5 +28,11 @@ public enum ParameterCode : byte
 }
 public enum Suits
 {
-    Clubs, Diamonds, Hearts, Spades
+    Clubs, Diamonds, Hearts, Spades,NONE
+}
+
+//cardRAnk
+public enum CardRank
+{
+    Point,Double,Flush,Ghost, Straight, StraightFlush,ThreeofKind
 }
