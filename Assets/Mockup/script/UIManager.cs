@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
     {
         playerDeck.SetTimer(time);
     }
+    //opengame result when game is end 
     public void OpenGameResult(Dictionary<object, object> data)
     {
         ui_gameResult.OpenGameResult(data);

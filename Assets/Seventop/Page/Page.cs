@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 namespace Seventop.Page {
     public abstract class Page : MonoBehaviour,IPage
     {
-        protected FlowController flowController;
+        public FlowController flowController;
         public Subpage mainSubpage;
         Subpage currentSubpage;
         public Dictionary<string, object> parameter;
