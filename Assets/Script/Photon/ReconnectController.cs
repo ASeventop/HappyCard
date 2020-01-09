@@ -4,7 +4,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class ReconnectController : MonoBehaviourPunCallbacks
 {
     private void OnApplicationPause(bool isPaused)
@@ -17,7 +17,12 @@ public class ReconnectController : MonoBehaviourPunCallbacks
     public override void OnDisconnected(DisconnectCause cause)
     {
         Debug.Log("OnDisconnected "+cause);
-        PhotonNetwork.LoadLevel((int)SceneIndex.Lobby);
+        //if (SceneManager.GetActiveScene().buildIndex != (int)SceneIndex.Lobby)
+        //    SceneManager.LoadSceneAsync((int)SceneIndex.Lobby);
+       //Debug.Log("SceneManager.GetActiveScene().buildIndex " + SceneManager.GetActiveScene().buildIndex);
+        //if (SceneManager.GetActiveScene().buildIndex != (int)SceneIndex.Lobby) { 
+        //    PhotonNetwork.LoadLevel((int)SceneIndex.Lobby);
+
     }
     private void OnPlayerDisconnected()
     {

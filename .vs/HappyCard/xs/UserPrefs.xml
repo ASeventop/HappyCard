@@ -1,19 +1,39 @@
 ﻿<Properties StartupConfiguration="{5C41B0AC-71FB-0DFA-BB4F-EFD509957EC0}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/EventCode.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Photon/ReconnectController.cs">
     <Files>
-      <File FileName="Assets/Script/EventCode.cs" Line="24" Column="1" />
+      <File FileName="Assets/Script/EventCode.cs" Line="36" Column="17" />
+      <File FileName="Assets/InfoGamerPhoton/Scripts/QuickStart/QuickStartRoomController.cs" Line="34" Column="13" />
+      <File FileName="Assets/Script/Photon/ReconnectController.cs" Line="47" Column="2" />
+      <File FileName="Assets/Script/Photon/ReconnectController.cs" Line="47" Column="2" />
+      <File FileName="Assets/Mockup/script/Seat.cs" Line="32" Column="12" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="HappyCard" expanded="True" selected="True" />
+          <Node name="HappyCard" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="InfoGamerPhoton" expanded="True">
+                <Node name="Scripts" expanded="True">
+                  <Node name="QuickStart" expanded="True" />
+                </Node>
+              </Node>
+              <Node name="Mockup" expanded="True">
+                <Node name="script" expanded="True" />
+              </Node>
+              <Node name="Script" expanded="True">
+                <Node name="Photon" expanded="True">
+                  <Node name="ReconnectController.cs" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="36b71e3f-4a5d-4a8b-8e50-5b2f5e13db9c" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="a04741f6-6a3a-42bc-8c02-bad823fc2808" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

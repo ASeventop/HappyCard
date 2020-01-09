@@ -1,7 +1,7 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class QuickStartRoomController : MonoBehaviourPunCallbacks
 {
     [SerializeField]
@@ -31,6 +31,7 @@ public class QuickStartRoomController : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
+            
             PhotonNetwork.LoadLevel(multiplayerSceneIndex); //because of AutoSyncScene all players who join the room will also be loaded into the multiplayer scene.
            // PageStack.Instance.CurrentSceneSwitch(SceneName.GamePlay);
         }
