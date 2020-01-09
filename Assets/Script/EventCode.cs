@@ -19,7 +19,8 @@ public enum EventCode : byte
     PlayerUpdateDeckEnd,
     UpdateDeckEnd,
     RestartGameTimer,
-    GameResult
+    GameResult,
+    PlayerLeave
 }
 public enum ParameterCode : byte
 {
@@ -35,4 +36,8 @@ public enum Suits
 public enum CardRank
 {
     Point,Double,Flush,Ghost, Straight, StraightFlush,ThreeofKind
+}
+public enum SceneIndex : int
+{
+    Lobby,GamePlay
 }

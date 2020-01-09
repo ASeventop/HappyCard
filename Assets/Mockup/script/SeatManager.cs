@@ -32,6 +32,16 @@ public class SeatManager : MonoBehaviourPun
         if (seatTarget != null)
             seatTarget.Occupied(sit);
     }
+    public void RemoveSit(int actorNr)
+    {
+        Debug.Log("removesit " + actorNr);
+        Debug.Log("seats ?" + seats);
+        var target = seats.Find(s => s.player != null && s.player.ActorNumber == actorNr);
+        if(target != null)
+        {
+            target.Reset();
+        }
+    }
     public void ReadyAccept(ReadyAccept accept)
     {
         var seatTarget = seats.Find(s => s.viewID == accept.viewId);

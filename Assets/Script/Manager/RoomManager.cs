@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UniRx;
-public class RoomManager : MonoBehaviourPun
+using Photon.Realtime;
+
+public class RoomManager : MonoBehaviourPunCallbacks
 {
     static RoomManager instance;
     public static RoomManager Instance
@@ -17,11 +19,24 @@ public class RoomManager : MonoBehaviourPun
             return instance;
         }
     }
-
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        base.OnDisconnected(cause);
+        Debug.Log("OnDisconnected");
+        PhotonNetwork.ReconnectAndRejoin();
+    }
+    private void OnFailedToConnect()
+    {
+        Debug.Log("OnFailedToConnect");
+    }
+    private void OnFailedToConnectToMasterServer()
+    {
+        Debug.Log("OnFailedToConnectToMasterServer");
+    }
     public void ExitRoom()
     {
         PhotonNetwork.LeaveRoom();
         AssetManager.Instance.Dispose();
-        PageStack.Instance.CurrentSceneSwitch(SceneName.Lobby);
+        PhotonNetwork.LoadLevel((int)SceneIndex.Lobby);
     }
 }

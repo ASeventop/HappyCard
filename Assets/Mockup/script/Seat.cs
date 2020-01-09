@@ -16,7 +16,7 @@ public class Seat : MonoBehaviourPun,IPunObservable
     [SerializeField] Button b_ready;
     [SerializeField] Image img_ready;
     [SerializeField] TextMeshProUGUI name_txt;
-    Player player;
+    public Player player;
     public PhotonView photonView;
     public int viewID;
 
@@ -57,7 +57,14 @@ public class Seat : MonoBehaviourPun,IPunObservable
         img_ready.color = Color.green;
         b_ready.gameObject.SetActive(false);
     }
-
+    public void Reset()
+    {
+        obj_sit.SetActive(true);
+        obj_player.SetActive(false);
+        player = null;
+        name_txt.text = "";
+        img_ready.color = Color.white ;
+    }
 
     //ipunobserv
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

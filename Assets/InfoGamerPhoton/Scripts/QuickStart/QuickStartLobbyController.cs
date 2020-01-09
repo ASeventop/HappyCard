@@ -37,6 +37,8 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
         Debug.Log("Creating room now");
         int randomRoomNumber = Random.Range(0, 10000); //creating a random name for the room
         RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize };
+        roomOps.PlayerTtl = 100;
+        roomOps.EmptyRoomTtl = 60000;
         roomOps.Plugins = new string[] {"MyFirstPlugin"}; // call plugin on create game
         roomOps.MaxPlayers = 6;
         roomOps.IsVisible = true;

@@ -40,32 +40,6 @@ public class GameRoomController : MonoBehaviourPunCallbacks
        // EventCode code = (EventCode)photonEvent.Code;
         CheckEventCode((EventCode)photonEvent.Code,photonEvent);
         Debug.Log("onvent " + photonEvent.Code + "sender "+ photonEvent.Sender+" data "+photonEvent.CustomData);
-      //  Debug.Log("Customdata type "+photonEvent.CustomData.GetType());
-        // Hashtable hash = (Hashtable)photonEvent.CustomData;
-        //Debug.Log("createplayerprefab");
-        /*if (photonEvent.CustomData is ExitGames.Client.Photon.Hashtable)
-        {
-            ExitGames.Client.Photon.Hashtable hash = photonEvent.CustomData as ExitGames.Client.Photon.Hashtable;
-            // var dic = hash.Cast<DictionaryEntry>().ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-            var dic = hash.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-            Debug.Log(dic.ContainsKey(1));
-            Debug.Log(dic[11]);
-            Debug.Log(dic[1]);
-        }*/
-        //table.Cast<DictionaryEntry>().ToDictionary(d => d.Key, d => d.Value);
-        /* if (eventCode == MoveUnitsToTargetPositionEvent)
-         {
-             object[] data = (object[])photonEvent.CustomData;
-
-             Vector3 targetPosition = (Vector3)data[0];
-
-             for (int index = 1; index < data.Length; ++index)
-             {
-                 int unitId = (int)data[index];
-
-                 UnitList[unitId].TargetPosition = targetPosition;
-             }
-         }*/
 
     }
     public void OnEnable()
@@ -74,12 +48,7 @@ public class GameRoomController : MonoBehaviourPunCallbacks
         PhotonNetwork.AddCallbackTarget(this);
         PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
         RequestSeatData();
-       /* byte evCode = (byte)EventCode.PlayerReady; // Custom Event 1: Used as "MoveUnitsToTargetPosition" event
-        object[] content = new object[] { new Vector3(10.0f, 2.0f, 5.0f), 1, 2, 5, 10 }; // Array contains the target position and the IDs of the selected units
-        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All }; // You would have to set the Receivers to All in order to receive this event on the local client as well
-        SendOptions sendOptions = new SendOptions { Reliability = true };
-        PhotonNetwork.RaiseEvent(evCode, content, raiseEventOptions, sendOptions);
-        Debug.Log("send event " + evCode);*/
+
 
     }
 
@@ -130,6 +99,19 @@ public class GameRoomController : MonoBehaviourPunCallbacks
             case EventCode.GameResult:
                 SetGameResult(photonEvent);
                 break;
+            case EventCode.PlayerLeave:
+                OnPlayerLeave(photonEvent);
+                break;
+
+        }
+    }
+    void OnPlayerLeave(EventData photonEvent)
+    {
+        Debug.Log("OnplayerLeave");
+        var data = photonEvent.CustomData as int[];
+        for (int i = 0; i < data.Length; i++)
+        {
+            SeatManager.Instance.RemoveSit(data[i]);
         }
     }
     void SetGameResult(EventData photonEvent)
@@ -200,12 +182,6 @@ public class GameRoomController : MonoBehaviourPunCallbacks
         {
             MyPlayer.Instance.SitSeat(acceptSit.id);
         }
-        foreach (var item in PhotonNetwork.PlayerList)
-        {
-            Debug.Log("name " + item.NickName);
-            Debug.Log("userid " + item.UserId);
-            Debug.Log("actornumber  " + item.ActorNumber);
-        }
         acceptSit.player = playerSit;
         SeatManager.Instance.AcceptSit(acceptSit);
 
@@ -216,7 +192,6 @@ public class GameRoomController : MonoBehaviourPunCallbacks
     }
     void ReceiveSeatData(EventData photonEvent)
     {
-        Debug.Log("getseatata " + photonEvent.CustomData);
         ExitGames.Client.Photon.Hashtable hash = photonEvent.CustomData as ExitGames.Client.Photon.Hashtable;
         var dic = hash.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
         var seats = dic["seats"] as Dictionary<object, object>;
@@ -235,6 +210,14 @@ public class GameRoomController : MonoBehaviourPunCallbacks
         {
             yield return entry;
         }
+    }
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        base.OnDisconnected(cause);
+    }
+    private void OnApplicationQuit()
+    {
+        PhotonNetwork.Disconnect();
     }
 }
 
