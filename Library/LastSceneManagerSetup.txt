@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/InfoGamerPhoton/Scenes/Demos/Lobby.unity
+- path: Assets/GameDemo/Lobby.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

@@ -1,0 +1,21 @@
+﻿<Properties StartupConfiguration="{5C41B0AC-71FB-0DFA-BB4F-EFD509957EC0}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/EventCode.cs">
+    <Files>
+      <File FileName="Assets/Script/EventCode.cs" Line="24" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="HappyCard" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="36b71e3f-4a5d-4a8b-8e50-5b2f5e13db9c" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

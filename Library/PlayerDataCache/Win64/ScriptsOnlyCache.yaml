@@ -1,14 +1,26 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - ChangeColor
+    - ChangeName
     - ChannelSelector
     - ChatAppIdCheckerUI
     - ChatGui
+    - ExitGames.Demos.DemoPunVoice.BetterToggle
+    - ExitGames.Demos.DemoPunVoice.ChangePOV
+    - ExitGames.Demos.DemoPunVoice.CharacterInstantiation
+    - ExitGames.Demos.DemoPunVoice.FirstPersonController
+    - ExitGames.Demos.DemoPunVoice.Highlighter
+    - ExitGames.Demos.DemoPunVoice.OrthographicController
+    - ExitGames.Demos.DemoPunVoice.ThirdPersonController
+    - ExitGames.Demos.DemoPunVoice.VoiceDemoUI
     - FriendItem
+    - FriendManager
     - Game
     - GamePlay
     - GameRoomController
     - GameSetupController
+    - HappyChat
     - IgnoreUiRaycastWhenInactive
     - Lobby
     - NamePickGui
@@ -17,15 +29,22 @@ ScriptsOnlyBuild:
     - Photon.Chat.UtilityScripts.OnStartDelete
     - Photon.Chat.UtilityScripts.TextButtonTransition
     - Photon.Chat.UtilityScripts.TextToggleIsOnTransition
+    - PointersController
+    - ProximityVoiceTrigger
     - QuickStartLobbyController
     - QuickStartRoomController
     - Ready_UI
+    - ReconnectController
     - RoomInfo
     - Seat
     - SeatManager
+    - SoundsForJoinAndLeave
     - UIManager
     - UI_GameResult
     - UI_PlayerDeck
+    - UnityStandardAssets.CrossPlatformInput.ButtonHandler
+    - UnityStandardAssets.CrossPlatformInput.Joystick
+    - UnityStandardAssets.CrossPlatformInput.MobileControlRig
     DOTween.dll:
     - DG.Tweening.Core.DOTweenSettings
     PhotonUnityNetworking.Demos.dll:
@@ -38,18 +57,28 @@ ScriptsOnlyBuild:
     - Photon.Pun.Demo.PunBasics.PlayerUI
     - Photon.Pun.Demo.SlotRacer.PlayerControl
     - Photon.Pun.Demo.SlotRacer.Utils.SplineWalker
+    PhotonUnityNetworking.Utilities.dll:
+    - Photon.Pun.UtilityScripts.ConnectAndJoinRandom
+    - Photon.Pun.UtilityScripts.MoveByKeys
     PhotonUnityNetworking.dll:
     - Photon.Pun.PhotonAnimatorView
     - Photon.Pun.PhotonRigidbodyView
     - Photon.Pun.PhotonTransformView
     - Photon.Pun.PhotonView
     - Photon.Pun.ServerSettings
+    PhotonVoice.PUN.dll:
+    - Photon.Voice.PUN.PhotonVoiceNetwork
+    - Photon.Voice.PUN.PhotonVoiceView
+    PhotonVoice.dll:
+    - Photon.Voice.Unity.Recorder
+    - Photon.Voice.Unity.Speaker
     UniRx.dll:
     - UniRx.Triggers.ObservableCollision2DTrigger
     - UniRx.Triggers.ObservableEventTrigger
     Unity.TextMeshPro.dll:
     - TMPro.TMP_ColorGradient
     - TMPro.TMP_FontAsset
+    - TMPro.TMP_InputField
     - TMPro.TMP_Settings
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
@@ -68,6 +97,7 @@ ScriptsOnlyBuild:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.EventTrigger
     - UnityEngine.EventSystems.StandaloneInputModule
+    - UnityEngine.EventSystems.TouchInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.ContentSizeFitter
@@ -78,6 +108,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.LayoutElement
     - UnityEngine.UI.Mask
     - UnityEngine.UI.Outline
+    - UnityEngine.UI.RectMask2D
     - UnityEngine.UI.ScrollRect
     - UnityEngine.UI.Shadow
     - UnityEngine.UI.Slider
@@ -86,6 +117,77 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.ToggleGroup
     - UnityEngine.UI.VerticalLayoutGroup
   sceneClasses:
+    Assets/GameDemo/ChatDemo.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 9764}
+    - Class: 114
+      Script: {instanceID: 10052}
+    - Class: 114
+      Script: {instanceID: 10106}
+    - Class: 114
+      Script: {instanceID: 10134}
+    - Class: 114
+      Script: {instanceID: 10252}
+    - Class: 114
+      Script: {instanceID: 10284}
+    - Class: 114
+      Script: {instanceID: 10420}
+    - Class: 114
+      Script: {instanceID: 10446}
+    - Class: 114
+      Script: {instanceID: 10556}
+    - Class: 114
+      Script: {instanceID: 10720}
+    - Class: 114
+      Script: {instanceID: 11032}
+    - Class: 114
+      Script: {instanceID: 11382}
+    - Class: 114
+      Script: {instanceID: 11688}
+    - Class: 114
+      Script: {instanceID: 11728}
+    - Class: 114
+      Script: {instanceID: 11748}
+    - Class: 114
+      Script: {instanceID: 12068}
+    - Class: 114
+      Script: {instanceID: 12160}
+    - Class: 114
+      Script: {instanceID: 12758}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    - Class: 687078895
+      Script: {instanceID: 0}
     Assets/GameDemo/GamePlay.unity:
     - Class: 1
       Script: {instanceID: 0}
@@ -110,57 +212,75 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9708}
+      Script: {instanceID: 9764}
     - Class: 114
-      Script: {instanceID: 10020}
+      Script: {instanceID: 10052}
     - Class: 114
-      Script: {instanceID: 10030}
+      Script: {instanceID: 10106}
     - Class: 114
-      Script: {instanceID: 10066}
+      Script: {instanceID: 10118}
     - Class: 114
-      Script: {instanceID: 10156}
+      Script: {instanceID: 10134}
     - Class: 114
-      Script: {instanceID: 10332}
+      Script: {instanceID: 10154}
     - Class: 114
-      Script: {instanceID: 10410}
+      Script: {instanceID: 10252}
     - Class: 114
-      Script: {instanceID: 10588}
+      Script: {instanceID: 10284}
     - Class: 114
-      Script: {instanceID: 10738}
+      Script: {instanceID: 10420}
     - Class: 114
-      Script: {instanceID: 10792}
+      Script: {instanceID: 10446}
     - Class: 114
-      Script: {instanceID: 10846}
+      Script: {instanceID: 10528}
     - Class: 114
-      Script: {instanceID: 10960}
+      Script: {instanceID: 10556}
     - Class: 114
-      Script: {instanceID: 11188}
+      Script: {instanceID: 10720}
     - Class: 114
-      Script: {instanceID: 11346}
+      Script: {instanceID: 10884}
     - Class: 114
-      Script: {instanceID: 11506}
+      Script: {instanceID: 10946}
     - Class: 114
-      Script: {instanceID: 11510}
+      Script: {instanceID: 11006}
     - Class: 114
-      Script: {instanceID: 11722}
+      Script: {instanceID: 11032}
+    - Class: 114
+      Script: {instanceID: 11134}
+    - Class: 114
+      Script: {instanceID: 11382}
+    - Class: 114
+      Script: {instanceID: 11550}
+    - Class: 114
+      Script: {instanceID: 11688}
+    - Class: 114
+      Script: {instanceID: 11724}
     - Class: 114
       Script: {instanceID: 11728}
     - Class: 114
-      Script: {instanceID: 11818}
+      Script: {instanceID: 11748}
     - Class: 114
-      Script: {instanceID: 11892}
+      Script: {instanceID: 11966}
     - Class: 114
-      Script: {instanceID: 11898}
+      Script: {instanceID: 11978}
     - Class: 114
-      Script: {instanceID: 12260}
+      Script: {instanceID: 12068}
     - Class: 114
-      Script: {instanceID: 12360}
+      Script: {instanceID: 12152}
     - Class: 114
-      Script: {instanceID: 12396}
+      Script: {instanceID: 12160}
     - Class: 114
-      Script: {instanceID: 12450}
+      Script: {instanceID: 12552}
     - Class: 114
-      Script: {instanceID: 12482}
+      Script: {instanceID: 12660}
+    - Class: 114
+      Script: {instanceID: 12698}
+    - Class: 114
+      Script: {instanceID: 12758}
+    - Class: 114
+      Script: {instanceID: 12794}
+    - Class: 114
+      Script: {instanceID: 19190}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -177,7 +297,7 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 687078895
       Script: {instanceID: 0}
-    Assets/InfoGamerPhoton/Scenes/Demos/Lobby.unity:
+    Assets/GameDemo/Lobby.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -206,11 +326,15 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
     - Class: 89
       Script: {instanceID: 0}
     - Class: 90
       Script: {instanceID: 0}
     - Class: 91
+      Script: {instanceID: 0}
+    - Class: 92
       Script: {instanceID: 0}
     - Class: 95
       Script: {instanceID: 0}
@@ -221,72 +345,98 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9708}
+      Script: {instanceID: 9764}
     - Class: 114
-      Script: {instanceID: 9866}
+      Script: {instanceID: 9914}
     - Class: 114
-      Script: {instanceID: 9898}
+      Script: {instanceID: 9934}
     - Class: 114
-      Script: {instanceID: 9922}
+      Script: {instanceID: 9938}
     - Class: 114
-      Script: {instanceID: 9968}
+      Script: {instanceID: 9976}
     - Class: 114
-      Script: {instanceID: 10020}
+      Script: {instanceID: 10002}
     - Class: 114
-      Script: {instanceID: 10472}
+      Script: {instanceID: 10038}
     - Class: 114
-      Script: {instanceID: 10558}
+      Script: {instanceID: 10052}
     - Class: 114
-      Script: {instanceID: 10588}
+      Script: {instanceID: 10106}
     - Class: 114
-      Script: {instanceID: 10624}
+      Script: {instanceID: 10244}
     - Class: 114
-      Script: {instanceID: 10684}
+      Script: {instanceID: 10262}
     - Class: 114
-      Script: {instanceID: 10724}
+      Script: {instanceID: 10378}
     - Class: 114
-      Script: {instanceID: 10944}
+      Script: {instanceID: 10392}
     - Class: 114
-      Script: {instanceID: 11034}
+      Script: {instanceID: 10594}
     - Class: 114
-      Script: {instanceID: 11056}
+      Script: {instanceID: 10688}
     - Class: 114
-      Script: {instanceID: 11188}
+      Script: {instanceID: 10720}
     - Class: 114
-      Script: {instanceID: 11262}
+      Script: {instanceID: 10760}
     - Class: 114
-      Script: {instanceID: 11360}
+      Script: {instanceID: 10826}
     - Class: 114
-      Script: {instanceID: 11444}
+      Script: {instanceID: 10870}
     - Class: 114
-      Script: {instanceID: 11456}
+      Script: {instanceID: 10956}
     - Class: 114
-      Script: {instanceID: 11510}
+      Script: {instanceID: 11114}
     - Class: 114
-      Script: {instanceID: 11534}
+      Script: {instanceID: 11196}
     - Class: 114
-      Script: {instanceID: 11716}
+      Script: {instanceID: 11212}
     - Class: 114
-      Script: {instanceID: 11730}
+      Script: {instanceID: 11246}
     - Class: 114
-      Script: {instanceID: 11742}
+      Script: {instanceID: 11382}
     - Class: 114
-      Script: {instanceID: 11898}
+      Script: {instanceID: 11462}
     - Class: 114
-      Script: {instanceID: 12134}
+      Script: {instanceID: 11564}
     - Class: 114
-      Script: {instanceID: 12300}
+      Script: {instanceID: 11658}
     - Class: 114
-      Script: {instanceID: 12360}
+      Script: {instanceID: 11670}
     - Class: 114
-      Script: {instanceID: 12424}
+      Script: {instanceID: 11728}
     - Class: 114
-      Script: {instanceID: 12450}
+      Script: {instanceID: 11754}
     - Class: 114
-      Script: {instanceID: 12494}
+      Script: {instanceID: 11960}
     - Class: 114
-      Script: {instanceID: 12502}
+      Script: {instanceID: 11980}
+    - Class: 114
+      Script: {instanceID: 11992}
+    - Class: 114
+      Script: {instanceID: 12160}
+    - Class: 114
+      Script: {instanceID: 12220}
+    - Class: 114
+      Script: {instanceID: 12416}
+    - Class: 114
+      Script: {instanceID: 12466}
+    - Class: 114
+      Script: {instanceID: 12594}
+    - Class: 114
+      Script: {instanceID: 12642}
+    - Class: 114
+      Script: {instanceID: 12660}
+    - Class: 114
+      Script: {instanceID: 12728}
+    - Class: 114
+      Script: {instanceID: 12758}
+    - Class: 114
+      Script: {instanceID: 12808}
+    - Class: 114
+      Script: {instanceID: 12816}
     - Class: 115
+      Script: {instanceID: 0}
+    - Class: 124
       Script: {instanceID: 0}
     - Class: 128
       Script: {instanceID: 0}
@@ -305,6 +455,8 @@ ScriptsOnlyBuild:
     - Class: 199
       Script: {instanceID: 0}
     - Class: 213
+      Script: {instanceID: 0}
+    - Class: 221
       Script: {instanceID: 0}
     - Class: 222
       Script: {instanceID: 0}
@@ -340,7 +492,7 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 10682}
+      Script: {instanceID: 10824}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -365,55 +517,55 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9708}
+      Script: {instanceID: 9764}
     - Class: 114
-      Script: {instanceID: 9838}
+      Script: {instanceID: 9906}
     - Class: 114
-      Script: {instanceID: 9928}
+      Script: {instanceID: 10008}
     - Class: 114
-      Script: {instanceID: 9968}
+      Script: {instanceID: 10052}
     - Class: 114
-      Script: {instanceID: 10020}
+      Script: {instanceID: 10106}
     - Class: 114
-      Script: {instanceID: 10156}
+      Script: {instanceID: 10252}
     - Class: 114
-      Script: {instanceID: 10186}
+      Script: {instanceID: 10284}
     - Class: 114
-      Script: {instanceID: 10436}
+      Script: {instanceID: 10556}
     - Class: 114
-      Script: {instanceID: 10472}
+      Script: {instanceID: 10594}
     - Class: 114
-      Script: {instanceID: 10504}
+      Script: {instanceID: 10630}
     - Class: 114
-      Script: {instanceID: 10848}
+      Script: {instanceID: 11008}
     - Class: 114
-      Script: {instanceID: 10868}
+      Script: {instanceID: 11032}
     - Class: 114
-      Script: {instanceID: 10932}
+      Script: {instanceID: 11100}
     - Class: 114
-      Script: {instanceID: 10950}
+      Script: {instanceID: 11120}
     - Class: 114
-      Script: {instanceID: 10952}
+      Script: {instanceID: 11124}
     - Class: 114
-      Script: {instanceID: 11188}
+      Script: {instanceID: 11382}
     - Class: 114
-      Script: {instanceID: 11304}
+      Script: {instanceID: 11504}
     - Class: 114
-      Script: {instanceID: 11346}
+      Script: {instanceID: 11550}
     - Class: 114
-      Script: {instanceID: 11472}
+      Script: {instanceID: 11688}
     - Class: 114
-      Script: {instanceID: 11614}
+      Script: {instanceID: 11842}
     - Class: 114
-      Script: {instanceID: 11898}
+      Script: {instanceID: 12160}
     - Class: 114
-      Script: {instanceID: 12056}
+      Script: {instanceID: 12336}
     - Class: 114
-      Script: {instanceID: 12366}
+      Script: {instanceID: 12668}
     - Class: 114
-      Script: {instanceID: 12470}
+      Script: {instanceID: 12780}
     - Class: 114
-      Script: {instanceID: 12534}
+      Script: {instanceID: 12850}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 124
@@ -432,7 +584,144 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 225
       Script: {instanceID: 0}
+    Assets/Photon/PhotonVoice/Demos/DemoVoicePun/DemoVoicePun-Scene.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 23
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 33
+      Script: {instanceID: 0}
+    - Class: 43
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 54
+      Script: {instanceID: 0}
+    - Class: 64
+      Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
+    - Class: 89
+      Script: {instanceID: 0}
+    - Class: 90
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 92
+      Script: {instanceID: 0}
+    - Class: 95
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 9740}
+    - Class: 114
+      Script: {instanceID: 9764}
+    - Class: 114
+      Script: {instanceID: 9914}
+    - Class: 114
+      Script: {instanceID: 10002}
+    - Class: 114
+      Script: {instanceID: 10038}
+    - Class: 114
+      Script: {instanceID: 10052}
+    - Class: 114
+      Script: {instanceID: 10090}
+    - Class: 114
+      Script: {instanceID: 10106}
+    - Class: 114
+      Script: {instanceID: 10252}
+    - Class: 114
+      Script: {instanceID: 10284}
+    - Class: 114
+      Script: {instanceID: 10386}
+    - Class: 114
+      Script: {instanceID: 10392}
+    - Class: 114
+      Script: {instanceID: 10668}
+    - Class: 114
+      Script: {instanceID: 10720}
+    - Class: 114
+      Script: {instanceID: 10832}
+    - Class: 114
+      Script: {instanceID: 11196}
+    - Class: 114
+      Script: {instanceID: 11212}
+    - Class: 114
+      Script: {instanceID: 11240}
+    - Class: 114
+      Script: {instanceID: 11382}
+    - Class: 114
+      Script: {instanceID: 11550}
+    - Class: 114
+      Script: {instanceID: 11656}
+    - Class: 114
+      Script: {instanceID: 11928}
+    - Class: 114
+      Script: {instanceID: 12160}
+    - Class: 114
+      Script: {instanceID: 12220}
+    - Class: 114
+      Script: {instanceID: 12238}
+    - Class: 114
+      Script: {instanceID: 12246}
+    - Class: 114
+      Script: {instanceID: 12640}
+    - Class: 114
+      Script: {instanceID: 12642}
+    - Class: 114
+      Script: {instanceID: 12660}
+    - Class: 114
+      Script: {instanceID: 12758}
+    - Class: 114
+      Script: {instanceID: 12780}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 124
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 135
+      Script: {instanceID: 0}
+    - Class: 136
+      Script: {instanceID: 0}
+    - Class: 137
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 221
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
   scriptHashData:
+  - hash:
+      serializedVersion: 2
+      Hash: b7c34b024460d03092023e0b319900f3
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: ExitGames.Demos.DemoPunVoice
+    className: VoiceDemoUI
   - hash:
       serializedVersion: 2
       Hash: 80d2851602cb4bcb6f559596c5eb955b
@@ -549,6 +838,12 @@ ScriptsOnlyBuild:
     className: ChatGui
   - hash:
       serializedVersion: 2
+      Hash: 1b131710b3f6ef831081565f0d5d693f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: ExitGames.Demos.DemoPunVoice
+    className: FirstPersonController
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UniRx.dll
     namespaceName: UniRx.Triggers
@@ -559,6 +854,12 @@ ScriptsOnlyBuild:
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit
     className: LayoutElementMatchSize
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: FriendManager
   - hash:
       serializedVersion: 2
       Hash: 19d59a279ea9fab5478e739e931bfe10
@@ -631,6 +932,12 @@ ScriptsOnlyBuild:
     assemblyName: PhotonUnityNetworking.Utilities.dll
     namespaceName: Photon.Pun.UtilityScripts
     className: CullingHandler
+  - hash:
+      serializedVersion: 2
+      Hash: 3cbff4dda32aee94b3bf0b023880ead1
+    assemblyName: PhotonVoice.dll
+    namespaceName: Photon.Voice.Unity
+    className: Speaker
   - hash:
       serializedVersion: 2
       Hash: 72712369a7c681ad84fc255a5ec0b333
@@ -729,6 +1036,12 @@ ScriptsOnlyBuild:
     className: ConnectAndJoinRandomLb
   - hash:
       serializedVersion: 2
+      Hash: 2191a37f0a775ae8610582fb423b8a1d
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ProximityVoiceTrigger
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -745,6 +1058,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: SignalAsset
+  - hash:
+      serializedVersion: 2
+      Hash: c2a435d94f56ab15b20fed8f446ce58a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PointersController
   - hash:
       serializedVersion: 2
       Hash: ba160f8fe96116c81151a9a24d7d9f4f
@@ -825,16 +1144,40 @@ ScriptsOnlyBuild:
     className: Block
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ChangeColor
+  - hash:
+      serializedVersion: 2
       Hash: cf9f5cf2c3145a37ac07f00e50e460f9
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: AspectRatioFitter
   - hash:
       serializedVersion: 2
+      Hash: 15d05b93359b2d5088ee9f72efcc2735
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: ExitGames.Demos.DemoPunVoice
+    className: CharacterInstantiation
+  - hash:
+      serializedVersion: 2
+      Hash: 8c3357fdfa655744319c4700f55f1a73
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: ExitGames.Demos.DemoPunVoice
+    className: Highlighter
+  - hash:
+      serializedVersion: 2
       Hash: cba6cca6bb3290c4c00d709cf63843db
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit
     className: SendRateOnSerializeField
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: PhotonVoice.API.dll
+    namespaceName: Photon.Voice.Unity
+    className: IOSAudioForceToSpeaker
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -1017,6 +1360,12 @@ ScriptsOnlyBuild:
     className: ControlPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: PhotonVoice.dll
+    namespaceName: Photon.Voice.Unity.UtilityScripts
+    className: MicAmplifierEditor
+  - hash:
+      serializedVersion: 2
       Hash: dd7520b7d4e690e8c593273e7b9fbe80
     assemblyName: Assembly-CSharp.dll
     namespaceName: TMPro.Examples
@@ -1095,6 +1444,12 @@ ScriptsOnlyBuild:
     className: PlayerControl
   - hash:
       serializedVersion: 2
+      Hash: a8b6c919b2049fcc280823488144371f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: UnityStandardAssets.CrossPlatformInput
+    className: Joystick
+  - hash:
+      serializedVersion: 2
       Hash: 96447be272e9160772d87dd557aa7a99
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -1143,6 +1498,12 @@ ScriptsOnlyBuild:
     className: ObservableDropTrigger
   - hash:
       serializedVersion: 2
+      Hash: 3a53517f7fb37a0c8b67697b0591fe55
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Photon.Voice.DemoVoiceUI
+    className: MicrophoneDropdownFiller
+  - hash:
+      serializedVersion: 2
       Hash: f941c3a384168571b7d90f58ec4986bc
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit
@@ -1161,6 +1522,24 @@ ScriptsOnlyBuild:
     className: ObservableEventTrigger
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ChangeName
+  - hash:
+      serializedVersion: 2
+      Hash: 4bd1cc3c85989d2213a9a8fd9d09e63f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: UnityStandardAssets.CrossPlatformInput
+    className: InputAxisScrollbar
+  - hash:
+      serializedVersion: 2
+      Hash: fdd7177da17032ba94d98037cc97bb49
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: UnityStandardAssets.CrossPlatformInput
+    className: AxisTouchButton
+  - hash:
+      serializedVersion: 2
       Hash: b3ab2106268377ffe25dd18ac23dca28
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -1177,6 +1556,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: Photon.Chat.UtilityScripts
     className: EventSystemSpawner
+  - hash:
+      serializedVersion: 2
+      Hash: d685afac4146366f84632f257d31665e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Photon.Voice.DemoVoiceUI
+    className: DemoVoiceUI
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -1201,6 +1586,12 @@ ScriptsOnlyBuild:
     assemblyName: UniRx.dll
     namespaceName: UniRx.Triggers
     className: ObservableEnableTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: c88c4199b288356ec3eb2f0d85abc619
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: UnityStandardAssets.CrossPlatformInput
+    className: ButtonHandler
   - hash:
       serializedVersion: 2
       Hash: c656dcc13ae391b68d594cc8f9c590b0
@@ -1317,6 +1708,12 @@ ScriptsOnlyBuild:
     className: GamePlayManager
   - hash:
       serializedVersion: 2
+      Hash: 3eeb307cd7d450456bdfdf7ac1b4814d
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: ExitGames.Demos.DemoPunVoice
+    className: ThirdPersonController
+  - hash:
+      serializedVersion: 2
       Hash: 259988b2d867e1586634d64379c5ff81
     assemblyName: PhotonUnityNetworking.dll
     namespaceName: Photon.Pun
@@ -1327,6 +1724,12 @@ ScriptsOnlyBuild:
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit
     className: CurrentRoomPropertiesListedInLobbyProperty
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: UnityStandardAssets.CrossPlatformInput
+    className: MobileControlRig
   - hash:
       serializedVersion: 2
       Hash: 704dcd31abc789439bc3f3cd10b58c2b
@@ -1521,6 +1924,12 @@ ScriptsOnlyBuild:
     className: Sample09_EventHandling
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: PhotonVoice.dll
+    namespaceName: Photon.Voice.Unity.UtilityScripts
+    className: PhotonVoiceLagSimulationGui
+  - hash:
+      serializedVersion: 2
       Hash: e244702e0dc05782229aa524e4d757f5
     assemblyName: Assembly-CSharp.dll
     namespaceName: TMPro.Examples
@@ -1552,15 +1961,33 @@ ScriptsOnlyBuild:
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: PhotonVoice.dll
+    namespaceName: Photon.Voice.Unity.UtilityScripts
+    className: TestTone
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UniRx.dll
     namespaceName: UniRx.Triggers
     className: ObservableInitializePotentialDragTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: PhotonVoice.API.dll
+    namespaceName: Photon.Voice.Unity
+    className: AudioOutCapture
   - hash:
       serializedVersion: 2
       Hash: a8a4fba96bef6fccf7bb4be2f06c16b6
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit.Forms
     className: LoadLevelUIForm
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: ExitGames.Demos.DemoPunVoice
+    className: BetterToggle
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -1641,6 +2068,12 @@ ScriptsOnlyBuild:
     className: Cluster
   - hash:
       serializedVersion: 2
+      Hash: 9df9bdeb079ca3eb5b016fb9c0f3abf7
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: HappyChat
+  - hash:
+      serializedVersion: 2
       Hash: e1300922cc039f41ab46a47f4cb05898
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -1707,6 +2140,12 @@ ScriptsOnlyBuild:
     className: PunTurnManager
   - hash:
       serializedVersion: 2
+      Hash: 2c19e18936ec5e45982bd41d8b80edbb
+    assemblyName: PhotonVoice.dll
+    namespaceName: Photon.Voice.Unity
+    className: VoiceConnection
+  - hash:
+      serializedVersion: 2
       Hash: e4316571779021b969790af4a77452dd
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Asteroids
@@ -1735,6 +2174,12 @@ ScriptsOnlyBuild:
     assemblyName: UniRx.dll
     namespaceName: UniRx.Triggers
     className: ObservablePointerUpTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 3f0fba59e2e9d3d9d1e438157bc71e4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: ExitGames.Demos.DemoPunVoice
+    className: ChangePOV
   - hash:
       serializedVersion: 2
       Hash: cba6cca6bb3290c4c00d709cf63843db
@@ -1771,6 +2216,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SeatManager
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: PhotonVoice.dll
+    namespaceName: Photon.Voice.Unity.UtilityScripts
+    className: PhotonVoiceStatsGui
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -1825,6 +2276,18 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TextMeshProUGUI
+  - hash:
+      serializedVersion: 2
+      Hash: d56cb4e2dbc2bb56b02eb7ca02bc7a52
+    assemblyName: PhotonVoice.dll
+    namespaceName: Photon.Voice.Unity.UtilityScripts
+    className: MicAmplifier
+  - hash:
+      serializedVersion: 2
+      Hash: 2e96746e287f1d66e63efc21c9c5a28e
+    assemblyName: PhotonVoice.dll
+    namespaceName: Photon.Voice.Unity.UtilityScripts
+    className: ConnectAndJoin
   - hash:
       serializedVersion: 2
       Hash: 7221ab9307aaa6b66a416e2e4561f420
@@ -1887,10 +2350,22 @@ ScriptsOnlyBuild:
     className: GraphicRaycaster
   - hash:
       serializedVersion: 2
+      Hash: 9ac24abfbd90d0eb7293f9f340820f4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Photon.Voice.DemoVoiceUI
+    className: RemoteSpeakerUI
+  - hash:
+      serializedVersion: 2
       Hash: 8a874a8207a7664bdf44e61f28717254
     assemblyName: Assembly-CSharp.dll
     namespaceName: TMPro.Examples
     className: SkewTextExample
+  - hash:
+      serializedVersion: 2
+      Hash: 2d2f0699dcfecd203593ba773819fd83
+    assemblyName: PhotonVoice.dll
+    namespaceName: Photon.Voice.Unity
+    className: WebRtcAudioDsp
   - hash:
       serializedVersion: 2
       Hash: fe2d355deb0ca31d59a0a7cf4d141fc3
@@ -1917,6 +2392,12 @@ ScriptsOnlyBuild:
     className: ObservableDeselectTrigger
   - hash:
       serializedVersion: 2
+      Hash: 9f31441ca9eceed1ac1d2c16cf86446c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: ExitGames.Demos.DemoPunVoice
+    className: OrthographicController
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Procedural
@@ -1929,10 +2410,28 @@ ScriptsOnlyBuild:
     className: TextMeshSpawner
   - hash:
       serializedVersion: 2
+      Hash: 6acce25c0f719d9e0ce4c271443fd502
+    assemblyName: PhotonVoice.PUN.dll
+    namespaceName: Photon.Voice.PUN
+    className: PhotonVoiceNetwork
+  - hash:
+      serializedVersion: 2
       Hash: e63944317d2f5958e31963668bb29158
     assemblyName: Assembly-CSharp.dll
     namespaceName: TMPro.Examples
     className: VertexShakeB
+  - hash:
+      serializedVersion: 2
+      Hash: eb2a458b0d39fd7cc0e96ac2dbd6da6c
+    assemblyName: PhotonVoice.dll
+    namespaceName: Photon.Voice.Unity
+    className: Recorder
+  - hash:
+      serializedVersion: 2
+      Hash: 219ec6059796d8951d2adcd8505d0dc2
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: UnityStandardAssets.CrossPlatformInput
+    className: TouchPad
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -2187,6 +2686,18 @@ ScriptsOnlyBuild:
     className: PlayModeRunnerCallback
   - hash:
       serializedVersion: 2
+      Hash: 80d90352f03cf09c8aa284555e75eb80
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SoundsForJoinAndLeave
+  - hash:
+      serializedVersion: 2
+      Hash: b9729aca984fa91fa63c34273dddc99b
+    assemblyName: PhotonVoice.PUN.dll
+    namespaceName: Photon.Voice.PUN
+    className: PhotonVoiceView
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
@@ -2401,10 +2912,18 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ReconnectController
   platform: 19
   scenePathNames:
-  - Assets/InfoGamerPhoton/Scenes/Demos/Lobby.unity
+  - Assets/GameDemo/Lobby.unity
   - Assets/GameDemo/GamePlay.unity
+  - Assets/GameDemo/ChatDemo.unity
   - Assets/Photon/PhotonChat/Demos/DemoChat/DemoChat-Scene.unity
   - Assets/InfoGamerPhoton/Scenes/Demos/MultiplayerSceneDemo.unity
+  - Assets/Photon/PhotonVoice/Demos/DemoVoicePun/DemoVoicePun-Scene.unity
   playerPath: D:/GameBuild/testmulti/TestMultiplayer.exe
