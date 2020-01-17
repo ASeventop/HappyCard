@@ -24,6 +24,9 @@ public class UI_PlayerDeck : MonoBehaviour
     public Image img_timeReduce;
     public TextMeshProUGUI time_txt;
     Deck deck;
+    [Header("Rule")]
+    [SerializeField]Image img_rule;
+    [SerializeField] Sprite sprite_rule,sprite_notrule;
     public void ShowCardFormDeck(byte[] _cards)
     {
         deck = new Deck();
@@ -57,6 +60,9 @@ public class UI_PlayerDeck : MonoBehaviour
         {
             PhotonMessage.DeckUpdateEnd();
         });
+    }
+    public void DeckUpdate(CT_PlayerDeckUpdate deckUpdate){
+        img_rule.sprite = deckUpdate.isRule ? sprite_rule : sprite_notrule;
     }
     void OnCardCollider(Collider2D collider)
     {

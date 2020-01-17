@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public Ready_UI ui_ready;
     public UI_PlayerDeck playerDeck;
     public UI_GameResult ui_gameResult;
+    public UI_DisConnect ui_dissConnect;
     public TextMeshProUGUI restartTime_txt;
     public Button b_exit;
     private void Awake()
@@ -47,6 +48,9 @@ public class UIManager : MonoBehaviour
         restartTime_txt.DOFade(1, 0).SetAutoKill();
         restartTime_txt.text = string.Format("เกมจะเริ่มในอีก... {0}", time);
         restartTime_txt.DOFade(0, 1).SetAutoKill();
+    }
+    public void UpdateCardDeck(CT_PlayerDeckUpdate playerDeckUpdate){
+        playerDeck.DeckUpdate(playerDeckUpdate);
     }
 
 }

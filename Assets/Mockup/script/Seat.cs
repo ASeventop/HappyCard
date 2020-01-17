@@ -24,33 +24,28 @@ public class Seat : MonoBehaviourPun,IPunObservable
     {
         photonView = GetComponent<PhotonView>();
         viewID = photonView.ViewID;
-        Debug.Log("photon view " + photonView.ViewID);
         SeatManager.Instance.RegisterSeat(this);
         b_sit.OnClickAsObservable().Subscribe(_ =>
         {
             SitRequest();
-        });
-        b_ready.OnClickAsObservable().Subscribe(_ =>
-        {
-            ReadyRequest();
         });
     }
     void SitRequest()
     {
         byte[] content = new byte[] {(byte)photonView.ViewID};
         PhotonMessage.RaiseEvent(EventCode.SitRequest, content, ReceiverGroup.MasterClient);
+
+        CustomSerialization c = new CustomSerialization() { Id = 8 };
+        SendCustomSerialization(c);
     }
     public void Occupied(AcceptSit accept)
     {
+        Debug.Log(string.Format("Accept sit {0} viewID {1} player {2}", accept.actorNumber, accept.id, accept.player));
         obj_sit.SetActive(false);
         obj_player.SetActive(true);
         player = accept.player;
         name_txt.text = player.NickName;
       
-    }
-    void ReadyRequest()
-    {
-        //PhotonMessage.PlayerReadyRequest((byte)player.ActorNumber, (byte)viewID);
     }
     public void Ready()
     {
@@ -70,5 +65,15 @@ public class Seat : MonoBehaviourPun,IPunObservable
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
        // throw new System.NotImplementedException();
+    }
+    void SendCustomSerialization(CustomSerialization data)
+    {
+        base.photonView.RPC("RPC_ReceivedCustomSerialization", RpcTarget.AllViaServer, CustomSerialization.Serialize(data)); ;
+    }
+    [PunRPC]
+    void RPC_ReceivedCustomSerialization(byte[] data)
+    {
+        CustomSerialization serialized = CustomSerialization.Deserialize(data) as CustomSerialization;
+        print(string.Format("serial byte id = {0}", serialized.Id));
     }
 }

@@ -32,7 +32,6 @@ namespace Photon.Pun.Demo.PunBasics
 		/// MonoBehaviour method called on GameObject by Unity during initialization phase.
 		/// </summary>
 		void Start () {
-		
 			string defaultName = string.Empty;
 			InputField _inputField = this.GetComponent<InputField>();
 

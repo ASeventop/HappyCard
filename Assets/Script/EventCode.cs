@@ -15,12 +15,18 @@ public enum EventCode : byte
     GameReady,
     DistributeCard,
     UpdatePlayerDeck,
+    ConfirmPlayerDeck,
+    UpdateRuleDeck,
     UpdateTimer,
     PlayerUpdateDeckEnd,
     UpdateDeckEnd,
     RestartGameTimer,
     GameResult,
-    PlayerLeave
+    PlayerLeave,
+    RequestFullState,
+    ReceiveFullState,
+    TestData = 254,
+    Rejoin = 255
 }
 public enum ParameterCode : byte
 {

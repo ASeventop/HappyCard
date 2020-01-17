@@ -50,6 +50,10 @@ public class PhotonMessage : MonoBehaviourPunCallbacks
 
     ///message event
     ///
+    public static void RequestFullState()
+    {
+        RaiseEvent(EventCode.RequestFullState, null, ReceiverGroup.All);
+    }
     public static void UpdatePlayerDeck(byte[] cards)
     {
         RaiseEvent(EventCode.UpdatePlayerDeck, cards, ReceiverGroup.All);

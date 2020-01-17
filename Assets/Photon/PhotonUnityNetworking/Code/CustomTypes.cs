@@ -14,6 +14,7 @@ namespace Photon.Pun
     using UnityEngine;
     using Photon.Realtime;
     using ExitGames.Client.Photon;
+    using System.IO;
 
 
     /// <summary>
@@ -173,5 +174,6 @@ namespace Photon.Pun
         }
 
         #endregion
+        
     }
 }

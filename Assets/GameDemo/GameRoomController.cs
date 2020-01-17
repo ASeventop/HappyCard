@@ -13,17 +13,18 @@ public class GameRoomController : MonoBehaviourPunCallbacks
     [SerializeField] GameObject playerPrefab;
     [SerializeField] Canvas gameCanvas;
     PhotonView photonView;
-
+    public Subject<bool> isConnected;
     private void Start()
     {
         photonView = PhotonView.Get(this);
         AssetManager.Instance.Init();
+        Debug.Log(string.Format("Actor ID {0}",PhotonNetwork.LocalPlayer.ActorNumber));
         MyPlayer.Instance.SetLocalPlayer(PhotonNetwork.LocalPlayer);
     }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         base.OnPlayerLeftRoom(otherPlayer);
-        Debug.Log("player " + otherPlayer.NickName + "lefted ");
+       // Debug.Log("player " + otherPlayer.NickName + "lefted ");
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
@@ -37,10 +38,15 @@ public class GameRoomController : MonoBehaviourPunCallbacks
     }
     public void OnEvent(EventData photonEvent)
     {
-       // EventCode code = (EventCode)photonEvent.Code;
+        // EventCode code = (EventCode)photonEvent.Code;
+       // Debug.Log(string.Format("OnEvent {0} : ({1})   , Sender = {2}", (EventCode)photonEvent.Code, photonEvent.Code, photonEvent.Sender));
         CheckEventCode((EventCode)photonEvent.Code,photonEvent);
-        Debug.Log("onvent " + photonEvent.Code + "sender "+ photonEvent.Sender+" data "+photonEvent.CustomData);
-
+        // Debug.Log("----------onvent " + (EventCode)photonEvent.Code+",,"+photonEvent.Code+ "sender "+ photonEvent.Sender+" data "+photonEvent.CustomData);
+    }
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        isConnected = new Subject<bool>();
+        isConnected.OnNext(false);
     }
     public void OnEnable()
     {
@@ -102,8 +108,57 @@ public class GameRoomController : MonoBehaviourPunCallbacks
             case EventCode.PlayerLeave:
                 OnPlayerLeave(photonEvent);
                 break;
+            case EventCode.Rejoin:
+                OnplayerRejoin(photonEvent);
+                break;
+            case EventCode.TestData:
+                OnTestSerailizeData(photonEvent);
+                break;
+            case EventCode.ConfirmPlayerDeck:
+                OnDeackUpdateConfirm(photonEvent);
+                break;
 
         }
+    }
+    void OnDeackUpdateConfirm(EventData photonEvent)
+    {
+        var data = photonEvent.CustomData as byte[];
+        var sender = photonEvent.Sender;
+        Debug.Log("sender " + sender);
+        CT_PlayerDeckUpdate playerDeckUpdate = CT_PlayerDeckUpdate.Deserialize(data) as CT_PlayerDeckUpdate;
+        Debug.Log("Deserializecompleted--------------------- ");
+       
+        var allCard = "";
+        for (int i = 0; i < playerDeckUpdate.cards_length; i++)
+        {
+            allCard += playerDeckUpdate.cards[i] + ",";
+        }
+        var allRank = "";
+        for (int i = 0; i < playerDeckUpdate.ranks_length; i++)
+        {
+            allRank += playerDeckUpdate.ranks[i] + ",";
+        }
+        var allhigherCards = "";
+        for (int i = 0; i < playerDeckUpdate.higherCards_length; i++)
+        {
+            allhigherCards += playerDeckUpdate.higherCards[i] + ",";
+        }
+        Debug.Log("allcard = " + allCard);
+        Debug.Log("allRank = " + allRank);
+        Debug.Log("allHigherCard = " + allhigherCards);
+        Debug.Log("card isrule " + playerDeckUpdate.isRule);
+        UIManager.Instance.UpdateCardDeck(playerDeckUpdate);
+    }
+    void OnTestSerailizeData(EventData photonEvent)
+    {
+        var data = photonEvent.CustomData as byte[];
+        var type = CustomPluginType.Deserialize(data) as CustomPluginType;
+        Debug.Log("get custompluginType " + type.byteField + " int " + type.intField + " string " + type.stringField);
+    }
+    void OnplayerRejoin(EventData photonEvent)
+    {
+        PhotonMessage.RequestFullState();
+        PhotonNetworkConsole.Instance.OnConnected();
     }
     void OnPlayerLeave(EventData photonEvent)
     {
@@ -193,12 +248,24 @@ public class GameRoomController : MonoBehaviourPunCallbacks
     void ReceiveSeatData(EventData photonEvent)
     {
         ExitGames.Client.Photon.Hashtable hash = photonEvent.CustomData as ExitGames.Client.Photon.Hashtable;
+        Debug.Log("On Receive seat data");
+        Debug.Log("hash  :  " + hash);
+
+        Debug.Log("------Key name-----");
+        foreach (var item in hash)
+        {
+            Debug.Log(string.Format("Key {0} Value {1} ", item.Key, item.Value));
+        }
+
         var dic = hash.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
         var seats = dic["seats"] as Dictionary<object, object>;
         SeatManager.Instance.SetSeatData(seats);
-        foreach (var item in seats)
+        Debug.Log("------Seat data-----");
+        foreach (var seat in seats)
         {
-            var acceptSit = new AcceptSit { actorNumber = (int)item.Key, id = (byte)item.Value };
+            Debug.Log(string.Format("seat Key : {0} , seat Value : {1}  ", seat.Key, seat.Value));
+
+            var acceptSit = new AcceptSit { actorNumber = (int)seat.Key, id = (byte)seat.Value };
             var playerSit = PhotonNetwork.PlayerList.FirstOrDefault(player => player.ActorNumber == acceptSit.actorNumber);
             acceptSit.player = playerSit;
             SeatManager.Instance.AcceptSit(acceptSit);
@@ -210,10 +277,6 @@ public class GameRoomController : MonoBehaviourPunCallbacks
         {
             yield return entry;
         }
-    }
-    public override void OnDisconnected(DisconnectCause cause)
-    {
-        base.OnDisconnected(cause);
     }
     private void OnApplicationQuit()
     {

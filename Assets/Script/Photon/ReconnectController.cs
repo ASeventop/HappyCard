@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class ReconnectController : MonoBehaviourPunCallbacks
 {
+   // [SerializeField] GameObject obj_disconnect;
     private void OnApplicationPause(bool isPaused)
     {
         if (isPaused)
@@ -16,18 +17,21 @@ public class ReconnectController : MonoBehaviourPunCallbacks
     }
     public override void OnDisconnected(DisconnectCause cause)
     {
-        Debug.Log("OnDisconnected "+cause);
-        //if (SceneManager.GetActiveScene().buildIndex != (int)SceneIndex.Lobby)
-        //    SceneManager.LoadSceneAsync((int)SceneIndex.Lobby);
-       //Debug.Log("SceneManager.GetActiveScene().buildIndex " + SceneManager.GetActiveScene().buildIndex);
-        //if (SceneManager.GetActiveScene().buildIndex != (int)SceneIndex.Lobby) { 
-        //    PhotonNetwork.LoadLevel((int)SceneIndex.Lobby);
-
+    }
+    public override void OnConnected()
+    {
+        base.OnConnected();
+        Debug.Log("OnConnected ...");
+    }
+    public override void OnConnectedToMaster()
+    {
+        base.OnConnectedToMaster();
+        Debug.Log("OnConnectedToMaster ... ");
     }
     private void OnPlayerDisconnected()
     {
-        Debug.Log("OnDisconOnPlayerDisconnectednected");
-        PhotonNetwork.LoadLevel((int)SceneIndex.Lobby);
+        Debug.Log("OnDiscon OnPlayerDisconnectednected");
+      //  PhotonNetwork.LoadLevel((int)SceneIndex.Lobby);
     }
     private void Update()
     {

@@ -14,14 +14,13 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster() //Callback function for when the first connection is established successfully.
     {
         PhotonNetwork.AutomaticallySyncScene = true; //Makes it so whatever scene the master client has loaded is the scene all other clients will load
-        quickStartButton.interactable = true;
+        //quickStartButton.interactable = true;
     }
 
     public void QuickStart() //Paired to the Quick Start button
     {
-        quickStartButton.interactable = false;
+       // quickStartButton.interactable = false;
         quickCancelButton.SetActive(true);
-        PhotonNetwork.NickName = "name" + Random.Range(0, 1000);
         PhotonNetwork.JoinRandomRoom(); //First tries to join an existing room
         Debug.Log("Quick start");
     }
@@ -57,5 +56,9 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
        // quickCancelButton.SetActive(false);
        // quickStartButton.SetActive(true);
         PhotonNetwork.LeaveRoom();
+    }
+    public void Reconnect()
+    {
+        PhotonNetwork.ReconnectAndRejoin();
     }
 }
