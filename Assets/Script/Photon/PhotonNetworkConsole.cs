@@ -100,6 +100,7 @@ static internal class ACustom
         PhotonPeer.RegisterType(typeof(CustomSerialization), (byte)'A', CustomSerialization.Serialize, CustomSerialization.Deserialize);
         PhotonPeer.RegisterType(typeof(CT_PlayerDeckUpdate), (byte)'C',CT_PlayerDeckUpdate.Serialize, CT_PlayerDeckUpdate.Deserialize);
         PhotonPeer.RegisterType(typeof(CT_RequestDeckUpdate),(byte)'D',CT_RequestDeckUpdate.Serialize,CT_RequestDeckUpdate.Deserialize);
+        PhotonPeer.RegisterType(typeof(CT_PlayerSummary),(byte)'E',CT_PlayerSummary.Serialize,CT_PlayerSummary.Deserialize);
     }
 }
 [System.Serializable]
@@ -202,3 +203,45 @@ CT_RequestDeckUpdate customObject = new CT_RequestDeckUpdate();
         return customObject;
     }
 }
+ [System.Serializable]
+    public class CT_PlayerSummary
+    {
+        public bool winAllPlayer;
+        public bool loseAllPlayer;
+        public int pointTotal;
+        public float currencyAmount;
+        public byte gameCurrency;
+        public static byte[] Serialize(object o)
+        {
+            CT_PlayerSummary customType = o as CT_PlayerSummary;
+            if (customType == null) { return null; }
+            using (var s = new MemoryStream())
+            {
+                using (var bw = new BinaryWriter(s))
+                {
+                    bw.Write(customType.winAllPlayer);
+                    bw.Write(customType.loseAllPlayer);
+                    bw.Write(customType.pointTotal);
+                    bw.Write(customType.currencyAmount);
+                    bw.Write(customType.gameCurrency);
+                    return s.ToArray();
+                }
+            }
+        }
+        public static object Deserialize(byte[] bytes)
+        {
+            CT_PlayerSummary customObject = new CT_PlayerSummary();
+            using (var s = new MemoryStream(bytes))
+            {
+                using (var br = new BinaryReader(s))
+                {
+                    customObject.winAllPlayer = br.ReadBoolean();
+                    customObject.loseAllPlayer = br.ReadBoolean();
+                    customObject.pointTotal = br.ReadInt32();
+                    customObject.currencyAmount = br.ReadSingle();
+                    customObject.gameCurrency = br.ReadByte();
+                }
+            }
+            return customObject;
+        }
+    } 

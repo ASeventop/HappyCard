@@ -45,11 +45,24 @@ public class HappyChat : MonoBehaviour, IChatClientListener
     {
         Debug.Log("Onconnected");
         chatClient.Subscribe(new string[] { "channelA", "channelB" });
-        this.SendChatMessage("HI");
+        //this.SendChatMessage("HI");
     }
-    private void SendChatMessage(string inputLine)
+
+    public void SendMessageFromInput(){
+        SendChatMessage(InputFieldChat.text);
+        InputFieldChat.text = "";
+    }
+    public void OnEnterSend()
     {
-        chatClient.PublishMessage("channelA", inputLine);
+        if (Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter))
+        {
+           SendMessageFromInput();
+        }
+    }
+    private void SendChatMessage(string inputMessage)
+    {
+        if(string.IsNullOrEmpty(inputMessage))return;
+        chatClient.PublishMessage("channelA", inputMessage);
     }
         public void Update()
     {
@@ -119,14 +132,7 @@ public class HappyChat : MonoBehaviour, IChatClientListener
         chatObject.SetActive(!chatObject.activeSelf);
     }
     //Chat input
-    public void OnEnterSend()
-    {
-        if (Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter))
-        {
-            SendChatMessage(InputFieldChat.text);
-            InputFieldChat.text = "";
-        }
-    }
+  
     void OnDestroy()
     {
         if (this.chatClient != null)

@@ -48,3 +48,7 @@ public enum SceneIndex : int
 {
     Lobby,GamePlay
 }
+    public enum Currency : byte
+    {
+        Tik,Coin
+    }

@@ -120,6 +120,7 @@ public class GameRoomController : MonoBehaviourPunCallbacks
     }
     void OnDeackUpdateConfirm(EventData photonEvent)
     {
+        if(photonEvent.Sender != PhotonNetwork.LocalPlayer.ActorNumber)return;
         var data = photonEvent.CustomData as byte[];
         var sender = photonEvent.Sender;
         Debug.Log("sender " + sender);
@@ -198,9 +199,9 @@ public class GameRoomController : MonoBehaviourPunCallbacks
         UIManager.Instance.SetTimer(time);
     }
     void DistributeCard(EventData photonEvent) {
-       if (photonEvent.Sender != PhotonNetwork.LocalPlayer.ActorNumber) return;
+    if (photonEvent.Sender != PhotonNetwork.LocalPlayer.ActorNumber) return;
         UIManager.Instance.CloseGameResult();
-       var data = photonEvent.CustomData as Dictionary<string, object>;
+    var data = photonEvent.CustomData as Dictionary<string, object>;
         byte[] deckIDs = data["deck"] as byte[];
         Game.Instance.OpenPlayerDeck(true);
         Game.Instance.playerDeck.ShowCardFormDeck(deckIDs);
@@ -225,7 +226,7 @@ public class GameRoomController : MonoBehaviourPunCallbacks
         object[] aaa = photonEvent.CustomData as object[];
         var acceptSit = new AcceptSit { actorNumber = (int)aaa[0], id = (byte)aaa[1] };
         var playerSit = PhotonNetwork.PlayerList.FirstOrDefault(player => player.ActorNumber == acceptSit.actorNumber);
-       if(playerSit.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
+        if(playerSit.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
         {
             MyPlayer.Instance.SitSeat(acceptSit.id);
         }

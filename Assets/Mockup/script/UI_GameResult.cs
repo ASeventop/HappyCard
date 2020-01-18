@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,7 @@ public class UI_GameResult : MonoBehaviourPun
     [SerializeField] TextMeshProUGUI duelResult_txt;
     [SerializeField] TextMeshProUGUI player_name_txt;
     [SerializeField] TextMeshProUGUI duel_name_txt;
+    [SerializeField] GameObject playerAllWin_object,duelAllWon_object;
     [SerializeField] Button b_next;
     [SerializeField] Color winColor, loseColor;
     public Sprite winSprite, LoseSprite;
@@ -27,7 +29,7 @@ public class UI_GameResult : MonoBehaviourPun
     /// <summary>
     /// summary result
     /// </summary>
-    Dictionary<int, int> playerSummary = new Dictionary<int, int>();
+    Dictionary<int, CT_PlayerSummary> playerSummary = new Dictionary<int, CT_PlayerSummary>();
     [SerializeField] TextMeshProUGUI playerName_txt;
     [SerializeField] TextMeshProUGUI playerSummaryPoint_txt;
     [SerializeField] TextMeshProUGUI[] duelName_txt;
@@ -69,8 +71,10 @@ public class UI_GameResult : MonoBehaviourPun
             {
                 duelList.Add(player.Value as Dictionary<object, object>);
             }
+            var summaryData = playerData["summary"] as byte[];
+            CT_PlayerSummary pSummary = CT_PlayerSummary.Deserialize(summaryData) as CT_PlayerSummary;
             Debug.Log("summary point " + playerData.ContainsKey("summary"));
-            playerSummary.Add((int)player.Key, (int)playerData["summary"]);
+            playerSummary.Add((int)player.Key, pSummary);
         }
         NextDuel();
     }
@@ -82,7 +86,6 @@ public class UI_GameResult : MonoBehaviourPun
             OpenSummary();
             return;
         }
-      
         var other = duelList[listIndex];
         duel_name_txt.text = PhotonNetwork.CurrentRoom.GetPlayer((int)deckTotals[0]["duelActor"]).NickName;
         byte[] cards = other["cards"] as byte[];
@@ -94,49 +97,33 @@ public class UI_GameResult : MonoBehaviourPun
         for (int i = 0; i < points.Length; i++)
         {
             var decktotal = points[i];
-            string message = "";
-           /* if(decktotal == 0)
-            {
-                message = string.Format("เสมอ {0} Point", decktotal);
-            }else if(decktotal > 0)
-            {
-                message = string.Format("ชนะ {0} Point", decktotal);
-            }
-            else
-            {
-                message = string.Format("แพ้ {0} Point", decktotal);
-            }*/
+
             bgPointSprite[i].sprite = decktotal > 0 ? winSprite : LoseSprite;
             playerPoint_txt[i].text = string.Format("{0} {1} Point ", ValueString(decktotal, "ชนะ", "แพ้", "เสมอ"), decktotal); ; ;
             playerPoint_txt[i].color = decktotal > 0 ? winColor : loseColor;
         }
-        var playerMessage = "";
+
         var duelMessage = "";
         int pointResult = (int)deckTotals[listIndex]["pointResult"]; 
-        float currenyAmount = (float)deckTotals[listIndex]["currencyAmount"]; 
-        float duelAmount = (float)deckTotals[listIndex]["duelCurrencyAmount"];
-        /*if (pointResult > 0)
-        {
-            playerMessage = string.Format("ชนะ {0} Point (+{1} {2})", pointResult, currenyAmount,"Tik");
-            duelMessage = string.Format("แพ้ {0} Point ({1} {2})", pointResult, duelAmount, "Tik");
-        }
-        else if (pointResult < 0)
-        {
-            playerMessage = string.Format("แพ้ {0} Point (-{1} {2})", pointResult, currenyAmount, "Tik");
-            duelMessage = string.Format("ชนะ {0} Point ({1} {2})", pointResult, duelAmount, "Tik");
-        }
-        else
-        {
-            playerMessage = string.Format("เสมอ {0} Point ({1} {2})", pointResult, currenyAmount, "Tik");
-            duelMessage = string.Format("เสมอ {0} Point ({1} {2})", pointResult, duelAmount, "Tik");
-        }*/
+        float playerCurrencyAmount = (float)deckTotals[listIndex]["playerCurrencyAmount"]; 
+        float playerCurrencyAmountWithTax = (float)deckTotals[listIndex]["playerCurrencyAmountWithTax"]; 
+        float duelCurrencyAmount = (float)deckTotals[listIndex]["duelCurrencyAmount"];
+        float duelCurrencyAmountWithTax = (float)deckTotals[listIndex]["duelCurrencyAmountWithTax"];
+        bool allWin = (bool)deckTotals[listIndex]["allWin"];
+        bool allLose =(bool)deckTotals[listIndex]["allLose"];
+        byte gameCurrency = (byte)deckTotals[listIndex]["gameCurrency"];
         playerBGTotalPoint.sprite = pointResult > 0 ? winSprite : LoseSprite;
-        playerResult_txt.text = string.Format("{0} {1} Point ({2} {3})",ValueString(pointResult,"ชนะ","แพ้","เสมอ"),pointResult, duelAmount, "Tik");
+        string playerAmountMessage = (playerCurrencyAmountWithTax > 0) ? ("+"+playerCurrencyAmountWithTax) : playerCurrencyAmountWithTax.ToString();
+        string duelAmountMessage = (duelCurrencyAmountWithTax > 0) ? ("+"+duelCurrencyAmountWithTax) : duelCurrencyAmountWithTax.ToString();
+    
+        playerResult_txt.text = string.Format("{0} {1} Point ({2} {3})",ValueString(pointResult,"ชนะ","แพ้","เสมอ"),pointResult, playerAmountMessage, (Currency)gameCurrency);
         playerResult_txt.color = pointResult > 0 ? winColor : loseColor;
+        playerAllWin_object.SetActive(allWin);
 
         duelBGTotalPoint.sprite = pointResult > 0 ? LoseSprite : winSprite;
         duelResult_txt.color = pointResult > 0 ? loseColor : winColor;
-        duelResult_txt.text = duelMessage;
+        duelResult_txt.text =  string.Format("{0} {1} Point ({2} {3})",ValueString(-pointResult,"ชนะ","แพ้","เสมอ"),pointResult, duelAmountMessage, (Currency)gameCurrency);
+        duelAllWon_object.SetActive(allLose);
     }
     void OpenSummary()
     {
@@ -148,9 +135,9 @@ public class UI_GameResult : MonoBehaviourPun
             if ((int)summary.Key == PhotonNetwork.LocalPlayer.ActorNumber) {
 
                 playerName_txt.text = PhotonNetwork.CurrentRoom.GetPlayer(summary.Key).NickName;
-                playerSummaryPoint_txt.text = summary.Value.ToString();
-                playerSummaryPoint_txt.color = summary.Value > 0 ? winColor : loseColor;
-                playerSummaryPoint_txt.text = string.Format("รวมแล้ว{0} {1} Point ({2} {3}))", ValueString(summary.Value, "ได้", "เสีย", "เสมอ"), summary.Value, 999, "Tik");
+                playerSummaryPoint_txt.text = summary.Value.pointTotal.ToString();
+                playerSummaryPoint_txt.color = summary.Value.pointTotal > 0 ? winColor : loseColor;
+                playerSummaryPoint_txt.text = string.Format("รวมแล้ว{0} {1} Point ({2} {3}))", ValueString(summary.Value.pointTotal, "ได้", "เสีย", "เสมอ"), summary.Value.pointTotal, summary.Value.currencyAmount,(Currency)summary.Value.gameCurrency);
             }
             else
             {
@@ -160,9 +147,9 @@ public class UI_GameResult : MonoBehaviourPun
 
                 duelName_txt[ind].text = PhotonNetwork.CurrentRoom.GetPlayer(summary.Key).NickName;
                 //duelSummaryPoint_txt[ind].text = summary.Value.ToString();
-                duelBGSummary[ind].sprite = summary.Value > 0 ? winSprite : LoseSprite;
-                duelSummaryPoint_txt[ind].color = summary.Value > 0 ? winColor : loseColor;
-                duelSummaryPoint_txt[ind].text = string.Format("รวมแล้ว{0} {1} Point ({2} {3}))", ValueString(summary.Value, "ได้", "เสีย", "เสมอ"), summary.Value, 999, "Tik");
+                duelBGSummary[ind].sprite = summary.Value.pointTotal > 0 ? winSprite : LoseSprite;
+                duelSummaryPoint_txt[ind].color = summary.Value.pointTotal > 0 ? winColor : loseColor;
+                duelSummaryPoint_txt[ind].text = string.Format("รวมแล้ว{0} {1} Point ({2} {3}))", ValueString(summary.Value.pointTotal, "ได้", "เสีย", "เสมอ"), summary.Value.pointTotal, summary.Value.currencyAmount, (Currency)summary.Value.gameCurrency);
                 ind++;
             }
         }
