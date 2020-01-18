@@ -20,6 +20,7 @@ public class CardManager : MonoBehaviour
     }
     public List<Card> row1,row2,row3;
     public List<Card> cards;
+    Deck deckMap = new Deck();
 
     public Card[] row_1, row_2, row_3;
     public void Init()
@@ -31,16 +32,30 @@ public class CardManager : MonoBehaviour
     }
     public void SwapCard(int fromIndex, int toIndex) {
 
-        var temp = cards[fromIndex];
-        cards[fromIndex] = cards[toIndex];
-        cards[toIndex] = temp;
+        CT_RequestDeckUpdate requestDeckupdate = new CT_RequestDeckUpdate();
         byte[] cardData = new byte[cards.Count];
         for (int i = 0; i < cards.Count; i++)
         {
             cardData[i] = (byte)cards[i].cardID;
         }
-        PhotonMessage.UpdatePlayerDeck(cardData);
-        SetCardRow();
+        requestDeckupdate.cards = cardData;
+        Debug.Log("Send Swap request form "+fromIndex + "to "+toIndex);
+        requestDeckupdate.swapCard = new byte[2]{(byte)fromIndex,(byte)toIndex};
+        PhotonMessage.RequestSwapCard(new byte[2]{(byte)fromIndex,(byte)toIndex});
+    }
+    public void UpdateCards(CT_PlayerDeckUpdate deckUpdate){
+        ClearCard();
+        byte[] cardData = new byte[deckUpdate.cards.Length];
+        var swapCard = deckUpdate.swapCard;
+        Debug.Log(string.Format("Go Swap Form {0} to {1}",swapCard[0],swapCard[1]));
+        var temp = cards[swapCard[0]];
+        cards[swapCard[0]] = cards[swapCard[1]];
+        cards[swapCard[1]] = temp;
+        for (int i = 0; i < deckUpdate.cards.Length; i++)
+        {
+            cardData[i] = (byte)cards[i].cardID;
+            AddToRow(deckMap.GetCardByID(cardData[i]));
+        }
     }
     public void SetCardRow()
     {
@@ -52,6 +67,11 @@ public class CardManager : MonoBehaviour
         cards.CopyTo(2, row_2, 0, 3);
         cards.CopyTo(5, row_3, 0, 3);
         CheckCardRank(row_2);
+    }
+    public void ClearCard(){
+        row1 = new List<Card>();
+        row2 = new List<Card>();
+        row3 = new List<Card>();
     }
 
     void CheckCardRank(Card[] cards)
@@ -91,19 +111,16 @@ public class CardManager : MonoBehaviour
         if (row1.Count < 2)
         {
             row1.Add(card);
-            Debug.Log("add row1");
             return;
         }
         if(row2.Count < 3)
         {
             row2.Add(card);
-            Debug.Log("add row2");
             return;
         }
         if(row3.Count < 3)
         {
             row3.Add(card);
-            Debug.Log("add row3");
             return;
         }
     }

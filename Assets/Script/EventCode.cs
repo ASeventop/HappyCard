@@ -14,6 +14,7 @@ public enum EventCode : byte
     ReadyAccept,
     GameReady,
     DistributeCard,
+    RequestSwapCard,
     UpdatePlayerDeck,
     ConfirmPlayerDeck,
     UpdateRuleDeck,

@@ -18,6 +18,7 @@ public class GameRoomController : MonoBehaviourPunCallbacks
     {
         photonView = PhotonView.Get(this);
         AssetManager.Instance.Init();
+        CardManager.Instance.Init();
         Debug.Log(string.Format("Actor ID {0}",PhotonNetwork.LocalPlayer.ActorNumber));
         MyPlayer.Instance.SetLocalPlayer(PhotonNetwork.LocalPlayer);
     }
@@ -111,9 +112,6 @@ public class GameRoomController : MonoBehaviourPunCallbacks
             case EventCode.Rejoin:
                 OnplayerRejoin(photonEvent);
                 break;
-            case EventCode.TestData:
-                OnTestSerailizeData(photonEvent);
-                break;
             case EventCode.ConfirmPlayerDeck:
                 OnDeackUpdateConfirm(photonEvent);
                 break;
@@ -127,7 +125,6 @@ public class GameRoomController : MonoBehaviourPunCallbacks
         Debug.Log("sender " + sender);
         CT_PlayerDeckUpdate playerDeckUpdate = CT_PlayerDeckUpdate.Deserialize(data) as CT_PlayerDeckUpdate;
         Debug.Log("Deserializecompleted--------------------- ");
-       
         var allCard = "";
         for (int i = 0; i < playerDeckUpdate.cards_length; i++)
         {
@@ -147,13 +144,8 @@ public class GameRoomController : MonoBehaviourPunCallbacks
         Debug.Log("allRank = " + allRank);
         Debug.Log("allHigherCard = " + allhigherCards);
         Debug.Log("card isrule " + playerDeckUpdate.isRule);
-        UIManager.Instance.UpdateCardDeck(playerDeckUpdate);
-    }
-    void OnTestSerailizeData(EventData photonEvent)
-    {
-        var data = photonEvent.CustomData as byte[];
-        var type = CustomPluginType.Deserialize(data) as CustomPluginType;
-        Debug.Log("get custompluginType " + type.byteField + " int " + type.intField + " string " + type.stringField);
+        CardManager.Instance.UpdateCards(playerDeckUpdate);
+        UIManager.Instance.UpdateCard(playerDeckUpdate);
     }
     void OnplayerRejoin(EventData photonEvent)
     {

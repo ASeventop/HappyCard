@@ -49,7 +49,7 @@ public class UIManager : MonoBehaviour
         restartTime_txt.text = string.Format("เกมจะเริ่มในอีก... {0}", time);
         restartTime_txt.DOFade(0, 1).SetAutoKill();
     }
-    public void UpdateCardDeck(CT_PlayerDeckUpdate playerDeckUpdate){
+    public void UpdateCard(CT_PlayerDeckUpdate playerDeckUpdate){
         playerDeck.DeckUpdate(playerDeckUpdate);
     }
 

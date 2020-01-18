@@ -98,8 +98,8 @@ static internal class ACustom
         //  PhotonPeer.RegisterType(Type customType, byte code, SerializeMethod serializeMethod, DeserializeMethod deserializeMethod)
         //PhotonPeer.RegisterType(typeof(Vector2), (byte)'W', SerializeVector2, DeserializeVector2);
         PhotonPeer.RegisterType(typeof(CustomSerialization), (byte)'A', CustomSerialization.Serialize, CustomSerialization.Deserialize);
-        PhotonPeer.RegisterType(typeof(CustomPluginType), (byte)'B', CustomPluginType.Serialize, CustomPluginType.Deserialize);
         PhotonPeer.RegisterType(typeof(CT_PlayerDeckUpdate), (byte)'C',CT_PlayerDeckUpdate.Serialize, CT_PlayerDeckUpdate.Deserialize);
+        PhotonPeer.RegisterType(typeof(CT_RequestDeckUpdate),(byte)'D',CT_RequestDeckUpdate.Serialize,CT_RequestDeckUpdate.Deserialize);
     }
 }
 [System.Serializable]
@@ -118,46 +118,8 @@ public class CustomSerialization
     }
 }
 [System.Serializable]
-class CustomPluginType
-{
-    public int intField;
-    public byte byteField;
-    public string stringField;
-
-    public static object Deserialize(byte[] bytes)
-    {
-        CustomPluginType customObject = new CustomPluginType();
-        using (var s = new MemoryStream(bytes))
-        {
-            using (var br = new BinaryReader(s))
-            {
-                customObject.intField = br.ReadInt32();
-                customObject.byteField = br.ReadByte();
-                customObject.stringField = br.ReadString();
-            }
-        }
-        return customObject;
-    }
-
-    public static byte[] Serialize(object customType)
-    {
-        CustomPluginType customObject = customType as CustomPluginType;
-        if (customObject == null) { return null; }
-        using (var s = new MemoryStream())
-        {
-            using (var bw = new BinaryWriter(s))
-            {
-                bw.Write(customObject.intField);
-                bw.Write(customObject.byteField);
-                bw.Write(customObject.stringField);
-                return s.ToArray();
-            }
-        }
-    }
-
-}
-[System.Serializable]
 public class CT_PlayerDeckUpdate
+
 {
     public int actorNr;
     public int cards_length;
@@ -166,6 +128,7 @@ public class CT_PlayerDeckUpdate
     public byte[] cards;
     public byte[] ranks;
     public byte[] higherCards;
+    public byte[] swapCard;
     public bool isRule;
     public static byte[] Serialize(object o)
     {
@@ -182,6 +145,7 @@ public class CT_PlayerDeckUpdate
                 bw.Write(customType.cards);
                 bw.Write(customType.ranks);
                 bw.Write(customType.higherCards);
+                bw.Write(customType.swapCard);
                 bw.Write(customType.isRule);
                 return s.ToArray();
             }
@@ -201,7 +165,38 @@ public class CT_PlayerDeckUpdate
                 customObject.cards = br.ReadBytes(customObject.cards_length);
                 customObject.ranks = br.ReadBytes(customObject.ranks_length);
                 customObject.higherCards = br.ReadBytes(customObject.higherCards_length);
+                customObject.swapCard = br.ReadBytes(2);
                 customObject.isRule = br.ReadBoolean();
+            }
+        }
+        return customObject;
+    }
+}
+
+[System.Serializable]
+public class CT_RequestDeckUpdate{
+    public byte[] cards;
+    public byte[] swapCard; //0 from 1 to
+    public static byte[] Serialize(object o){
+        CT_RequestDeckUpdate customType = o as CT_RequestDeckUpdate;
+        using (var s = new MemoryStream())
+        {
+            using (var bw = new BinaryWriter(s))
+            {
+                bw.Write(customType.cards);
+                bw.Write(customType.swapCard);
+                return s.ToArray();
+            }
+        }
+    }
+    public static object Deserialize(byte[] bytes){
+CT_RequestDeckUpdate customObject = new CT_RequestDeckUpdate();
+        using (var s = new MemoryStream(bytes))
+        {
+            using (var br = new BinaryReader(s))
+            {
+                customObject.cards = br.ReadBytes(8);
+                customObject.swapCard = br.ReadBytes(2);
             }
         }
         return customObject;

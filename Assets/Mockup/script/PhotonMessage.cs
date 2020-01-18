@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Data.Common;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
@@ -53,6 +54,9 @@ public class PhotonMessage : MonoBehaviourPunCallbacks
     public static void RequestFullState()
     {
         RaiseEvent(EventCode.RequestFullState, null, ReceiverGroup.All);
+    }
+    public static void RequestSwapCard(byte[] swapCard){
+        RaiseEvent(EventCode.RequestSwapCard,swapCard,ReceiverGroup.All);
     }
     public static void UpdatePlayerDeck(byte[] cards)
     {
