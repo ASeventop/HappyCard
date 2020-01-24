@@ -54,7 +54,6 @@ public class UI_PlayerDeck : MonoBehaviour
             item.OnPointerDownAsObservable().Subscribe(_ => OnCardSelect(_, item));
             item.OnPointerUpAsObservable().Subscribe(_ => OnCardDeselect(_, item));
             item.OnDragAsObservable().Subscribe(_ => OnCardMove(_, item));
-           
         }
         foreach (var item in collisionTriggers)
         {
@@ -67,8 +66,7 @@ public class UI_PlayerDeck : MonoBehaviour
         });
     }
     public void DeckUpdate(CT_PlayerDeckUpdate deckUpdate){
-        img_rule.sprite = deckUpdate.isRule ? sprite_rule : sprite_notrule;
-        b_confirm.gameObject.SetActive(deckUpdate.isRule);
+        UpdateRule(deckUpdate.isRule);
         var swapCard = deckUpdate.swapCard;
         var indexFrom = swapCard[0];
         var indexTo = swapCard[1];
@@ -151,7 +149,11 @@ public class UI_PlayerDeck : MonoBehaviour
     }
     public void StartGame(bool isStart)
     {
-        b_confirm.gameObject.SetActive(isStart);
+      //  b_confirm.gameObject.SetActive(isStart);
+    }
+    public void UpdateRule(bool rule){
+        img_rule.sprite = rule ? sprite_rule : sprite_notrule;
+        b_confirm.gameObject.SetActive(rule);
     }
 
 }

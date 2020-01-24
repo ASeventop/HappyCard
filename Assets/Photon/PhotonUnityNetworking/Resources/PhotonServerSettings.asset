@@ -18,14 +18,14 @@ MonoBehaviour:
     AppIdVoice: 
     AppVersion: 
     UseNameServer: 0
-    FixedRegion: aaaa
-    Server: 192.168.43.157
+    FixedRegion: aaa
+    Server: 103.129.15.203
     Port: 5055
     Protocol: 0
     EnableLobbyStatistics: 1
-    NetworkLogging: 1
+    NetworkLogging: 5
   PunLogging: 2
-  EnableSupportLogger: 0
+  EnableSupportLogger: 1
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:

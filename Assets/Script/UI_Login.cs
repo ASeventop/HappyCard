@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,9 +20,11 @@ public class UI_Login : MonoBehaviourPunCallbacks
             object_login.SetActive(false);
         }
         UserManager.Instance.SetData();
-        input_name.text = "RNG_" + Random.Range(0, 999);
+        input_name.text = "RNG_" + UnityEngine.Random.Range(0, 999);
+        input_userID.text = ""+UnityEngine.Random.Range(0,999);
         b_login.OnClickAsObservable().Subscribe(_ =>
         {
+            Debug.Log("b_login");
             if (!string.IsNullOrEmpty(input_name.text)&& !string.IsNullOrEmpty(input_userID.text))
                 PhotonNetworkConsole.Instance.Connect(input_name.text, input_userID.text);
         });

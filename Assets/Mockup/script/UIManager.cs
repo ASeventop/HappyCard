@@ -52,5 +52,8 @@ public class UIManager : MonoBehaviour
     public void UpdateCard(CT_PlayerDeckUpdate playerDeckUpdate){
         playerDeck.DeckUpdate(playerDeckUpdate);
     }
+    public void SetCardRule(bool isRule){
+        playerDeck.UpdateRule(isRule);
+    }
 
 }

@@ -87,23 +87,9 @@ public class UI_GameResult : MonoBehaviourPun
             return;
         }
         var other = duelList[listIndex];
+        Debug.Log("(int)deckTotals[0] "+deckTotals[0]);
         duel_name_txt.text = PhotonNetwork.CurrentRoom.GetPlayer((int)deckTotals[0]["duelActor"]).NickName;
         byte[] cards = other["cards"] as byte[];
-        for (int i = 0; i < duelCards.Length; i++)
-        {
-            duelCards[i].sprite = AssetManager.GetSprite("" + cards[i]);
-        }
-        sbyte[] points = deckTotals[listIndex]["results"] as sbyte[];
-        for (int i = 0; i < points.Length; i++)
-        {
-            var decktotal = points[i];
-
-            bgPointSprite[i].sprite = decktotal > 0 ? winSprite : LoseSprite;
-            playerPoint_txt[i].text = string.Format("{0} {1} Point ", ValueString(decktotal, "ชนะ", "แพ้", "เสมอ"), decktotal); ; ;
-            playerPoint_txt[i].color = decktotal > 0 ? winColor : loseColor;
-        }
-
-        var duelMessage = "";
         int pointResult = (int)deckTotals[listIndex]["pointResult"]; 
         float playerCurrencyAmount = (float)deckTotals[listIndex]["playerCurrencyAmount"]; 
         float playerCurrencyAmountWithTax = (float)deckTotals[listIndex]["playerCurrencyAmountWithTax"]; 
@@ -112,6 +98,29 @@ public class UI_GameResult : MonoBehaviourPun
         bool allWin = (bool)deckTotals[listIndex]["allWin"];
         bool allLose =(bool)deckTotals[listIndex]["allLose"];
         byte gameCurrency = (byte)deckTotals[listIndex]["gameCurrency"];
+        bool isRule = (bool)deckTotals[listIndex]["isRule"];
+
+        for (int i = 0; i < duelCards.Length; i++)
+        {
+            duelCards[i].sprite = AssetManager.GetSprite("" + cards[i]);
+        }
+        sbyte[] points = deckTotals[listIndex]["results"] as sbyte[];
+        for (int i = 0; i < points.Length; i++)
+        {
+            var decktotal = points[i];
+            if(isRule){
+                bgPointSprite[i].sprite = decktotal > 0 ? winSprite : LoseSprite;
+                playerPoint_txt[i].text = string.Format("{0} {1} Point ", ValueString(decktotal, "ชนะ", "แพ้", "เสมอ"), decktotal);
+                playerPoint_txt[i].color = decktotal > 0 ? winColor : loseColor;
+            }else
+            {
+                bgPointSprite[i].sprite = LoseSprite;
+                playerPoint_txt[i].text = "ติดหลักเกณฑ์";
+                playerPoint_txt[i].color = loseColor;
+            }
+        }
+
+        var duelMessage = "";
         playerBGTotalPoint.sprite = pointResult > 0 ? winSprite : LoseSprite;
         string playerAmountMessage = (playerCurrencyAmountWithTax > 0) ? ("+"+playerCurrencyAmountWithTax) : playerCurrencyAmountWithTax.ToString();
         string duelAmountMessage = (duelCurrencyAmountWithTax > 0) ? ("+"+duelCurrencyAmountWithTax) : duelCurrencyAmountWithTax.ToString();

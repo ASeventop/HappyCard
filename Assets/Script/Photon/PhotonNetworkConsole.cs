@@ -206,6 +206,7 @@ CT_RequestDeckUpdate customObject = new CT_RequestDeckUpdate();
  [System.Serializable]
     public class CT_PlayerSummary
     {
+        public bool isRule;
         public bool winAllPlayer;
         public bool loseAllPlayer;
         public int pointTotal;
@@ -219,6 +220,7 @@ CT_RequestDeckUpdate customObject = new CT_RequestDeckUpdate();
             {
                 using (var bw = new BinaryWriter(s))
                 {
+                    bw.Write(customType.isRule);
                     bw.Write(customType.winAllPlayer);
                     bw.Write(customType.loseAllPlayer);
                     bw.Write(customType.pointTotal);
@@ -235,6 +237,7 @@ CT_RequestDeckUpdate customObject = new CT_RequestDeckUpdate();
             {
                 using (var br = new BinaryReader(s))
                 {
+                    customObject.isRule = br.ReadBoolean();
                     customObject.winAllPlayer = br.ReadBoolean();
                     customObject.loseAllPlayer = br.ReadBoolean();
                     customObject.pointTotal = br.ReadInt32();

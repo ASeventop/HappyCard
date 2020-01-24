@@ -201,8 +201,10 @@ public class GameRoomController : MonoBehaviourPunCallbacks
     void DistributeCard(EventData photonEvent) {
     if (photonEvent.Sender != PhotonNetwork.LocalPlayer.ActorNumber) return;
         UIManager.Instance.CloseGameResult();
-    var data = photonEvent.CustomData as Dictionary<string, object>;
+        var data = photonEvent.CustomData as Dictionary<string, object>;
         byte[] deckIDs = data["deck"] as byte[];
+        bool rule = (bool)data["rule"];
+        UIManager.Instance.SetCardRule(rule);
         Game.Instance.OpenPlayerDeck(true);
         Game.Instance.playerDeck.ShowCardFormDeck(deckIDs);
     }
